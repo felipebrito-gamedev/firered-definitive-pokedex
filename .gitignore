@@ -7,6 +7,10 @@
 /.angular/
 .angular/
 
+# ROM and game assets (never commit copyrighted assets)
+*.gba
+*.sav
+
 # Node modules and dependency files
 /node_modules/
 /package-lock.json
