@@ -1,0 +1,74 @@
+// =============================================================================
+// Pokémon Definitive Pokédex — Global Theme & Design Tokens
+// =============================================================================
+// Custom Pokédex theme applied via Angular Material 3 theming tokens.
+// Primary: Pokédex Crimson Red (#DC0A2D)
+// Tertiary: Dark Slate (#2A2A2A)
+// Surface: Off-White (#F7F7F7)
+// =============================================================================
+
+@use '@angular/material' as mat;
+
+// ---------------------------------------------------------------------------
+// Pokédex Color Palettes
+// ---------------------------------------------------------------------------
+$pokedex-red-palette: mat.$red-palette;
+$pokedex-tertiary-palette: mat.$azure-palette;
+
+// ---------------------------------------------------------------------------
+// Theme Configuration
+// ---------------------------------------------------------------------------
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: $pokedex-red-palette,
+        tertiary: $pokedex-tertiary-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  // Support light and dark themes based on user system preference
+  color-scheme: light dark;
+
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  margin: 0;
+  height: 100%;
+}
+
+// ---------------------------------------------------------------------------
+// Pokémon Type Color Tokens (19 types including Fairy)
+// ---------------------------------------------------------------------------
+:root {
+  --type-normal: #a8a77a;
+  --type-fire: #ee8130;
+  --type-water: #6390f0;
+  --type-grass: #7ac74c;
+  --type-electric: #f7d02c;
+  --type-ice: #96d9d6;
+  --type-fighting: #c22e28;
+  --type-poison: #a33ea1;
+  --type-ground: #e2bf65;
+  --type-flying: #a98ff3;
+  --type-psychic: #f95587;
+  --type-bug: #a6b91a;
+  --type-rock: #b6a136;
+  --type-ghost: #735797;
+  --type-dragon: #6f35fc;
+  --type-steel: #b7b7ce;
+  --type-dark: #705746;
+  --type-fairy: #d685ad;
+
+  // Pokédex brand tokens
+  --pokedex-red: #dc0a2d;
+  --pokedex-dark: #2a2a2a;
+  --pokedex-surface: #f7f7f7;
+}

@@ -14,25 +14,32 @@
 
 ## 2. Collaboration Contract & Agent Guidelines
 1. **Roles**: The human developer is the **NAVIGATOR** and final authority. Any AI agent operates as the **DRIVER**.
-2. **Approval Gate**:
-   - Never start code implementation without presenting a concrete phase plan and obtaining explicit user approval.
+2. **Phase Lifecycle & Pre-Implementation Approval Protocol**:
+   - Every development phase MUST strictly adhere to this four-step sequence:
+     1. **Phase Planning & Proposal Artifact**: At the beginning of each phase, the agent must plan and present proposed changes inside a structured artifact (e.g. `phase-X-<title>.md`), detailing architecture, tasks, and acceptance criteria, and ask for explicit user approval.
+     2. **Pre-Implementation Artifact Archiving**: Immediately upon receiving user approval, the agent MUST save that approved artifact inside the repository at `docs/approved-artifacts/phase-X-<title>.md` **BEFORE starting code implementation**.
+     3. **Execution with Living Artifact Synchronization**: The agent implements code strictly according to the approved plan (following TDD). If implementation details diverge or adapt during execution, the agent MUST update this artifact in `docs/approved-artifacts/` to preserve complete parity between plan and reality.
+     4. **Phase Closure & Handoff**: Execute all verification checks (lint, test, build with 0 errors), author `docs/agent-handoffs/phase-X-handoff.md`, update roadmap tracking in both `docs/roadmap.md` and `AGENTS.md`, provide the exact recommended git commands for the user to execute manually in their terminal, and request user approval to advance.
+3. **Approval Gate & Strict Git Policy**:
+   - **Never start code implementation** without presenting a concrete phase plan and obtaining explicit user approval.
+   - **Strict Git Mutation Ban for Agents**: AI agents MUST **NEVER** execute git commands that modify repository state, history, index, worktree, or remote branches (including but not limited to `git add`, `git commit`, `git push`, `git checkout`, `git switch`, `git reset`, `git merge`, `git rebase`, `git tag`, `git clean`, `git stash`). All repository-modifying git actions are reserved strictly for the human developer.
+   - **Read-Only Git Commands Permitted**: The agent is restricted to non-mutating inspection commands (`git status`, `git diff`, `git log`). When git actions are recommended (e.g. at phase completion), the agent MUST provide the exact recommended commands for the human developer to execute manually in their own shell.
    - Always obtain explicit approval before:
-     - Destructive commands (file deletion, git reset, branch purging).
-     - Git commits and pushes.
+     - Destructive file commands (file deletion outside temporary scratch directories).
      - Deployments.
      - Installing unexpected or unapproved dependencies.
      - Modifying cloud resources or security settings.
-3. **Phase-by-Phase Execution**: Work strictly in small, verified phases. Never skip ahead.
-4. **Agent Startup Routine**: Before starting any work, the agent must inspect the latest approved roadmap phase in `docs/roadmap.md` and the most recent handoff summary in `docs/agent-handoffs/`.
-5. **TDD Workflow**: RED (failing test) → GREEN (minimal passing implementation) → REFACTOR (clean code and design).
-6. **Test Integrity**: Never alter or disable an existing test simply to make failing code pass. Tests define the invariants.
-7. **No Phantom Claims**: Never state that a test, build, lint, or security check passed unless it was actually executed and succeeded in the shell. Document any unexecuted checks and the explicit reasons they were skipped.
-8. **Budget & Simplicity (Zero-Cost Constraint)**: Strictly operate within free service tiers (Firebase Spark plan, GitHub Pages, Dexie IndexedDB). Never introduce unapproved paid services, heavy state management libraries (no NgRx), microservices, or unnecessary backend code.
-9. **Language Rule**:
-   - Source code, comments, test suites, architecture docs, git commits, and agent instructions MUST be in **English**.
-   - User-facing UI, labels, and error messages MUST be in **Brazilian Portuguese (pt-BR)**.
-   - Code must structure UI strings to permit future i18n.
-10. **Cross-Agent Portability**:
+4. **Phase-by-Phase Execution**: Work strictly in small, verified phases. Never skip ahead.
+5. **Agent Startup Routine**: Before starting any work, the agent must inspect the latest approved roadmap phase in `docs/roadmap.md` and `AGENTS.md` Section 10, along with the most recent handoff summary in `docs/agent-handoffs/`.
+6. **TDD Workflow**: RED (failing test) → GREEN (minimal passing implementation) → REFACTOR (clean code and design).
+7. **Test Integrity**: Never alter or disable an existing test simply to make failing code pass. Tests define the invariants.
+8. **No Phantom Claims**: Never state that a test, build, lint, or security check passed unless it was actually executed and succeeded in the shell. Document any unexecuted checks and the explicit reasons they were skipped.
+9. **Budget & Simplicity (Zero-Cost Constraint)**: Strictly operate within free service tiers (Firebase Spark plan, GitHub Pages, Dexie IndexedDB). Never introduce unapproved paid services, heavy state management libraries (no NgRx), microservices, or unnecessary backend code.
+10. **Language Rule**:
+    - Source code, comments, test suites, architecture docs, git commits, and agent instructions MUST be in **English**.
+    - User-facing UI, labels, and error messages MUST be in **Brazilian Portuguese (pt-BR)**.
+    - Code must structure UI strings to permit future i18n.
+11. **Cross-Agent Portability**:
     - `AGENTS.md` is the canonical, tool-independent source of truth. Both Google Antigravity and OpenCode (and any other agent) follow this identical contract.
     - Any tool-specific configuration files must remain minimal adapters referencing `AGENTS.md`.
 
@@ -141,7 +148,10 @@ Any code handling collection and Pokédex state MUST strictly enforce:
 3. **Test Integrity**: Never weaken, disable, or alter existing tests merely to make new code pass.
 
 ## 9. Documentation Standards
-- **Artifact Preservation Rule**: For every interaction cycle, all generated and approved artifacts must be preserved inside the repository at `docs/approved-artifacts/`.
+- **Artifact Preservation & Pre-Implementation Rule**:
+  - For every interaction cycle that proposes or completes a phase, all generated artifacts must be preserved inside the repository at `docs/approved-artifacts/`.
+  - **Pre-Implementation Requirement**: When an agent proposes a phase plan artifact and receives user approval, it MUST save that artifact to `docs/approved-artifacts/phase-X-<title>.md` **before** executing implementation.
+  - **Living Synchronization**: If any technical detail, dependency, or architectural decision adapts during implementation, the agent must update this artifact in place to prevent drift.
 - Keep all documentation files synchronized with `AGENTS.md`:
   - `docs/approved-artifacts/`: Permanent repository archive of approved artifacts across all phases.
   - `docs/architecture.md`: System layers, reactive signals architecture, and outbox sync engine.
@@ -153,9 +163,9 @@ Any code handling collection and Pokédex state MUST strictly enforce:
   - `docs/agent-handoffs/`: Compact phase summaries for seamless cross-agent handoffs.
 
 ## 10. Development Roadmap & Status
-- **Phase 0 — Discovery and Architecture**: In Progress (Current phase — documentation refinement & ROM verification).
-- **Phase 1 — Project Foundation & Tooling**: Pending user approval.
-- **Phase 2 — Reference Pokédex & Catalog**: Pending.
+- **Phase 0 — Discovery and Architecture**: **COMPLETED & APPROVED** (ROM binary verified, 100% DAG, domain invariants, architecture baselined).
+- **Phase 1 — Project Foundation & Tooling**: **COMPLETED** (Angular 22.2.4 on Node.js v24.22.1 LTS, Vitest v5, Material 22 custom theme, TDD domain utility, CI pipeline, base docs suite; ready for approval).
+- **Phase 2 — Reference Pokédex & Catalog**: **PENDING APPROVAL** (Next Phase: ROM dataset seeding, Dexie schema v1, virtual-scrolled Pokédex catalog, search & type filters, detail sheet).
 - **Phase 3 — Local Player Tracking & Collection**: Pending.
 - **Phase 4 — Authentication & Secure Firestore Sync**: Pending.
 - **Phase 5 — PWA & GitHub Pages Deployment**: Pending.
@@ -167,5 +177,7 @@ When completing a phase, the agent must:
 2. Document any unexecuted checks and the explicit reasons for skipping them.
 3. Update `docs/agent-handoffs/phase-X-handoff.md`.
 4. Update `docs/roadmap.md` with completed milestones.
-5. Verify no uncommitted scratch files, broken paths, or copyrighted ROM files exist in git tracking.
-6. Summarize changes and present the next phase plan to the user for explicit approval.
+5. Update `AGENTS.md` Section 10 to keep the canonical roadmap status perfectly synchronized across all agentic platforms.
+6. Verify no uncommitted scratch files, broken paths, or copyrighted ROM files exist in git tracking.
+7. Save the finalized phase artifact to `docs/approved-artifacts/`.
+8. Summarize changes, provide the exact recommended git commands for the human developer to execute manually in their terminal, and request user approval to proceed to the next phase.

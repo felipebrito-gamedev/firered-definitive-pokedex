@@ -1,0 +1,40 @@
+// =============================================================================
+// App Root Shell — Layout & Toolbar Styling
+// =============================================================================
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.app-toolbar {
+  background-color: var(--pokedex-red);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.profile-button {
+  color: #fff;
+}
+
+.app-content {
+  flex: 1 1 auto;
+  padding: 1rem;
+  max-width: 960px;
+  width: 100%;
+  margin-inline: auto;
+  box-sizing: border-box;
+}

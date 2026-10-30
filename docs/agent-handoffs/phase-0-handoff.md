@@ -55,4 +55,4 @@
 
 ## 5. Next Recommended Action
 - Request explicit user approval to begin **Phase 1 — Project Foundation & Tooling Validation**.
-- In Phase 1: validate Angular CLI compatibility with Node.js v22.9.0, initialize project shell in strict mode, configure Vitest, ESLint, Git CI workflow (`ci.yml`), custom SCSS Pokédex theme, and author the detailed markdown files in `docs/`.
+- In Phase 1: validate Angular CLI compatibility with Node.js v24.22.1 LTS ("Krypton"), initialize project shell in strict mode, configure Vitest, Prettier/linter, Git CI workflow (`ci.yml`), custom SCSS Pokédex theme, and author the detailed markdown files in `docs/`.
