@@ -2,7 +2,9 @@
 
 **Project**: Pokémon Definitive Pokédex (FireRed Definitivo PT-BR v2.0.4)  
 **Completed Phase**: Phase 0 — Discovery and Architecture  
-**Date**: October 2026  
+**Date**: October 2026
+
+**Historical handoff**: Phase 1 and Phase 2 are complete; Phase 3 awaits approval. The next-action section below records the original handoff, not a current instruction. Use [the roadmap](../roadmap.md) and [the consistency-cycle artifact](../approved-artifacts/phase-2-consistency-adjustments.md) for current status.  
 **Status**: 100% Complete & Accepted Baseline  
 
 ---
@@ -40,11 +42,11 @@
 ---
 
 ## 3. Files Created / Modified
-- [`.gitignore`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/.gitignore) (added `*.gba`, `*.sav`)
-- [`AGENTS.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/AGENTS.md) (canonical cross-agent operating manual)
-- [`docs/roadmap.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/roadmap.md) (living roadmap)
-- [`docs/agent-handoffs/phase-0-handoff.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/agent-handoffs/phase-0-handoff.md) (this handoff document)
-- Phase 0 Architecture Report Artifact in `C:\Users\felip\.gemini\antigravity\brain\d41ff52e-87ea-4cd6-9bb1-3611c72d51e0\phase-0-discovery-and-architecture.md`
+- [`.gitignore`](../../.gitignore) (added `*.gba`, `*.sav`)
+- [`AGENTS.md`](../../AGENTS.md) (canonical cross-agent operating manual)
+- [`docs/roadmap.md`](../roadmap.md) (living roadmap)
+- [`docs/agent-handoffs/phase-0-handoff.md`](./phase-0-handoff.md) (this handoff document)
+- [Preserved Phase 0 Architecture Report](../approved-artifacts/phase-0-discovery-and-architecture.md) (originally authored in the Antigravity workspace; repository copy is the portable reference).
 
 ---
 

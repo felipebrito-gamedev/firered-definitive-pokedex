@@ -1,0 +1,84 @@
+.detail {
+  padding: 1rem 1rem 1.5rem;
+  // The Material sheet owns scrolling; avoid nested scrollbars on narrow screens.
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.dex {
+  margin: 0;
+  font-weight: 600;
+}
+
+.sprite,
+.sprite-fallback {
+  display: block;
+  width: 96px;
+  height: 96px;
+}
+
+h2,
+h3 {
+  margin: 0.15rem 0 0.5rem;
+}
+
+.types {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.type-pill {
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr 2.5rem;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+}
+
+.stat-bar {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pokedex-dark) 12%, #fff);
+  overflow: hidden;
+}
+
+.stat-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.stat-fill.low {
+  background: #c62828;
+}
+
+.stat-fill.medium {
+  background: #f9a825;
+}
+
+.stat-fill.high {
+  background: #2e7d32;
+}
+
+.stat-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}

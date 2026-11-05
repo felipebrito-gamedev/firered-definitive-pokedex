@@ -1,0 +1,65 @@
+<section class="filter-bar" [attr.aria-label]="messages.catalog.searchAria">
+  <div class="search-row">
+    <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+      <mat-label>{{ messages.catalog.searchPlaceholder }}</mat-label>
+      <input
+        matInput
+        type="search"
+        [attr.aria-label]="messages.catalog.searchAria"
+        [ngModel]="catalog.searchTerm()"
+        (ngModelChange)="onSearchInput($event)"
+      />
+      @if (catalog.searchTerm()) {
+        <button
+          matSuffix
+          type="button"
+          class="clear-search"
+          [attr.aria-label]="messages.catalog.clearSearch"
+          (click)="clearSearch()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="sort-field" subscriptSizing="dynamic">
+      <mat-label>{{ messages.catalog.sortLabel }}</mat-label>
+      <mat-select
+        [attr.aria-label]="messages.catalog.sortAria"
+        [ngModel]="catalog.sortOrder()"
+        (ngModelChange)="onSortChange($event)"
+      >
+        @for (option of sortOptions; track option) {
+          <mat-option [value]="option">{{ messages.sort[option] }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="type-chips" role="group" [attr.aria-label]="messages.catalog.typeFilterAria">
+    <button
+      type="button"
+      class="type-chip"
+      [class.active]="catalog.selectedType() === null"
+      [attr.aria-pressed]="catalog.selectedType() === null"
+      (click)="selectType(null)"
+    >
+      {{ messages.catalog.allTypes }}
+    </button>
+    @for (type of types; track type) {
+      <button
+        type="button"
+        class="type-chip"
+        [class.active]="catalog.selectedType() === type"
+        [attr.aria-pressed]="catalog.selectedType() === type"
+        [style.background-color]="typeCssVar(type)"
+        [style.color]="typeUsesDarkLabel(type) ? '#1a1a1a' : '#fff'"
+        (click)="selectType(type)"
+      >
+        {{ typeLabels[type] }}
+      </button>
+    }
+  </div>
+
+  <p class="count" aria-live="polite">{{ catalog.resultCountLabel() }}</p>
+</section>

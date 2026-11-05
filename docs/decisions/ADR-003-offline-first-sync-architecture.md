@@ -14,6 +14,7 @@ We adopted the following synchronization architecture:
 1. **Write-Ahead Local Operations (Outbox Pattern)**:
    - All gameplay mutations (captures, evolutions, releases, profile updates) write durably to Dexie IndexedDB first.
    - Each mutation atomically enqueues an operation into a local `syncQueue` table.
+   - Phase 3 implements durable queue insertion for every affected entity, including events. Phase 4 implements network delivery and reconciliation.
 
 2. **Event-Preserving Conflict Resolution**:
    - Conflict resolution must preserve committed gameplay events and prevent silent data loss.
@@ -45,3 +46,5 @@ We adopted the following synchronization architecture:
 - **Negative / Trade-offs**:
   - Sync engine requires rigorous edge-case testing (Phase 4).
   - Tombstones require eventual compaction/purge strategy.
+
+Account adoption, ownership fields/indexes, event ordering across devices, and tombstone semantics remain explicit design questions in [the domain model](../domain-model.md#4-design-questions-requiring-future-phase-approval). This ADR does not supply their implementation policy.

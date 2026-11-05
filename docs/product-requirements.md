@@ -37,12 +37,12 @@ Unlike generic Pokédex references, this application serves as an interactive **
 
 ## 4. Functional Scope & Feature Modules
 
-### Feature 1: National Pokédex Catalog & Reference
+### Feature 1: National Pokédex Catalog & Reference (Phase 2)
 - **F1.1**: Browse species #001 to #386 with search by name, number (#001–#386), and filtering by primary/secondary type.
 - **F1.2**: Detailed species view showing base stats (HP, Atk, Def, SpA, SpD, Speed, BST), types (including Fairy), and verified evolution paths.
 - **F1.3**: Visual indication of ROM-specific evolutions (e.g. Kadabra evolving at Lv 48, Slowpoke evolving to Slowking with Water Stone).
 
-### Feature 2: Specimen Tracking & Collection Management
+### Feature 2: Specimen Tracking & Collection Management (Phase 3)
 - **F2.1 Specimen Creation**: Capture/register a specimen of any species with optional level, nickname, capture date, and acquisition method (Wild, Gift, Egg, Trade).
 - **F2.2 Specimen vs. Registration Separation**: Catching a specimen automatically registers the species. Releasing or evolving a specimen leaves the species registered permanently.
 - **F2.3 Duplicate Specimen Support**: Players may catch and retain multiple specimens of the identical species (e.g., 3 Pikachus) with distinct identifiers, levels, and histories.
@@ -54,17 +54,20 @@ Unlike generic Pokédex references, this application serves as an interactive **
   - `REQUIREMENTS_REPORTED_MET`: Reported level or item conditions verified met.
   - `CONDITION_UNKNOWN`: Evolution depends on unverified in-game factors (e.g. Clamperl personality branch).
 
-### Feature 3: Multi-Profile Management
+### Feature 3: Multi-Profile Management (Phase 3)
 - **F3.1 Multi-Journey Tracking**: Create, switch, rename, and archive distinct profiles under one account.
 - **F3.2 Strict In-Memory Signal Boundary**: Switching profiles flushes in-memory reactive signals immediately, eliminating cross-profile state bleeding.
 - **F3.3 Scoped Persistence**: All specimen, registration, and event queries strictly isolate by `profileId`.
 
-### Feature 4: Local Persistence & Offline-First Operation
+### Feature 4: Local Persistence & Offline-First Operation (Phase 3)
+
+Reference catalog seeding in IndexedDB is Phase 2. Player writes (captures, evolutions, profiles, and backup) are Phase 3.
+Phase 3 local transactions also enqueue the durable outbox; Phase 4 delivers it. Offline reload/installability requires application asset caching in Phase 5; IndexedDB alone does not provide it. These are target capabilities, not completed Phase 2 behavior.
 - **F4.1 Local IndexedDB**: All operations write durably to Dexie.js v4 before any network operation.
 - **F4.2 Full Offline Usability**: The app remains fully functional without network access (browsing, capturing, evolving, profile creation, and backup export/import).
 - **F4.3 Atomic Transactions**: Multi-entity mutations (captures, evolutions, special splits) execute in a single Dexie transaction.
 
-### Feature 5: Canonical Backup & Restoration
+### Feature 5: Canonical Backup & Restoration (Phase 3)
 - **F5.1 Versioned JSON Export**: Full offline export of profile data, specimens, registrations, and event history with explicit `schemaVersion`.
 - **F5.2 Integrity Validation**: Zod-based schema validation of backup files before import.
 - **F5.3 Non-Destructive Restore Policy**:
@@ -75,7 +78,7 @@ Unlike generic Pokédex references, this application serves as an interactive **
 
 ### Feature 6: Cloud Synchronization & Authentication (Phase 4)
 - **F6.1 Google Sign-In**: Firebase Authentication (Google provider) via Firebase Modular SDK v13.
-- **F6.2 Outbox Queue**: Offline mutations enqueue in `syncQueue` and drain via exponential backoff.
+- **F6.2 Outbox Delivery**: Consume the `syncQueue` atomically populated by Phase 3 local mutations and drain via exponential backoff.
 - **F6.3 Cloud Security Rules**: Firestore security rules enforce `request.auth.uid == userId` and validate document immutability.
 - **F6.4 Conflict Safety**: Preserves committed gameplay events; does not rely solely on client timestamps for conflict safety.
 

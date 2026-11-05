@@ -3,6 +3,8 @@
 ## 1. Overview & Provenance Contract
 This document details the reverse engineering, binary extraction, and formal verification of the game dataset used by the **Pokémon Definitive Pokédex**.
 
+The current application seed is [`pokedex-seed.data.ts`](../src/app/core/data/pokedex-seed.data.ts). Earlier JSON paths in discovery records are superseded. There are 19 ROM type IDs including MYSTERY, and 18 playable catalog filter types. Metadata is the game-data authority; optional remote sprite URLs are presentation references, not sources for species stats or evolution rules.
+
 - **ROM Binary**: `FRDefinitivo-v2.0.4.gba`
 - **Game Identifier**: `BPRE` (Pokémon FireRed, expanded 32 MB ROM)
 - **Author**: Community ROM Hack *Pokémon FireRed Definitivo PT-BR v2.0.4*

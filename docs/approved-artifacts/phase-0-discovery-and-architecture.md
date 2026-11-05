@@ -3,7 +3,9 @@
 **Role**: Principal Software Architect, Senior Angular Engineer & Driver  
 **Navigator**: User  
 **Status**: Phase 0 Complete — Final Approved Architectural Baseline  
-**Date**: October 2026  
+**Date**: October 2026
+
+**Historical artifact / current supersession note (November 5, 2026)**: This discovery record preserves earlier proposals. Current reference contracts and the TypeScript seed are defined by [the domain model](../domain-model.md) and [the Phase 2 artifact](./phase-2-reference-pokedex-and-catalog.md). Earlier JSON paths, evolution enums, and the all-tables schema-v1 example below are historical, not instructions to recreate those assets or schemas. Actual schema v1 contains only reference tables; later player tables require an approved migration. Dexie arrived in Phase 2; ESLint was superseded by explicit app/test typechecks plus Prettier. Offline application reload/installability belongs to Phase 5.  
 
 ---
 
@@ -60,7 +62,7 @@ We inspected both the author workbook (`Pokedex_Pessoal_FireRed_Definitivo_v2.0.
   - *Nincada → Ninjask & Shedinja*: Level 20 special event
 
 > [!IMPORTANT]
-> **Copyright & Asset Protection**: The copyrighted ROM (`FRDefinitivo-v2.0.4.gba`) and any save files (`*.sav`) are permanently ignored in [.gitignore](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/.gitignore) and will never be committed to Git. Only the clean extracted JSON dataset (`assets/data/firered-definitivo-v2.0.4.json`) is maintained in the codebase.
+> **Copyright & Asset Protection**: The copyrighted ROM (`FRDefinitivo-v2.0.4.gba`) and any save files (`*.sav`) are permanently ignored in [.gitignore](../../.gitignore) and will never be committed to Git. The originally proposed JSON asset path is superseded by the current metadata module [`src/app/core/data/pokedex-seed.data.ts`](../../src/app/core/data/pokedex-seed.data.ts).
 
 ---
 
@@ -119,6 +121,8 @@ Do not assume a Pokémon can evolve immediately merely because its recorded leve
 *Note: Evolution eligibility is strictly separated from whether the destination species has already been registered in the Pokédex.*
 
 ### Domain Contracts & Schemas
+
+Historical draft examples: current Phase 2 methods are `LEVEL_UP`, `ITEM`, `HAPPINESS`, `PERSONALITY`, and `SPECIAL`; the type union also includes MYSTERY. See [the current model](../domain-model.md). Player contracts remain subject to Phase 3 approval.
 
 ```typescript
 export type PokemonType =
@@ -271,20 +275,22 @@ To prevent desynchronization between owned specimens and registration state:
      1. Mutates `PokemonSpecimen` (updates `currentSpeciesId = B`, appends to `evolutionHistory`, updates `updatedAt`).
      2. Upserts `SpeciesRegistration` for species B (`isRegistered: true`, `firstObtainedAt = now`).
      3. Appends `PokemonEvent` (`SPECIMEN_EVOLVED`).
-     4. Enqueues two `SyncOperation` records (one for specimen update, one for registration upsert).
+     4. Enqueues `SyncOperation` records for the specimen update, registration upsert, and appended event. (Consistency correction: the original two-operation example omitted event delivery.)
    - If any step fails, the entire transaction rolls back cleanly.
 3. **Special Evolution Case (Nincada → Ninjask & Shedinja)**:
    - When evolving Nincada at Lv 20, if user confirms Shedinja was obtained, the atomic transaction:
      1. Mutates original specimen to Ninjask (#291).
      2. Creates a second distinct specimen for Shedinja (#292) with `acquisitionMethod: 'EVOLVED'`.
      3. Upserts registrations for both #291 and #292.
-     4. Appends events and enqueues sync operations for both specimens.
+     4. Appends events and enqueues sync operations for all affected specimens, registrations, and events.
 
 ---
 
 ## 5. Persistence Schemas & Firestore Security Policy
 
 ### Dexie.js (IndexedDB) Schema
+
+Historical target sketch only: this is not the implemented schema or a migration specification. Finalize ownership fields/composite keys and migration versions under the Phase 3 plan; see the open questions in [the domain model](../domain-model.md#4-design-questions-requiring-future-phase-approval).
 ```typescript
 export class DefinitivePokedexDB extends Dexie {
   species!: Table<Species, number>;

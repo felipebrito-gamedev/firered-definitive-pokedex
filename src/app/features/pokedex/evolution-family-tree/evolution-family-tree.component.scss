@@ -1,0 +1,62 @@
+.family h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.rom-callout {
+  color: var(--pokedex-dark);
+  margin: 0 0 0.75rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+  background: color-mix(in srgb, var(--pokedex-red) 12%, #fff);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.node.focus .species {
+  outline: 2px solid var(--pokedex-red);
+  outline-offset: 2px;
+}
+
+.species {
+  color: var(--pokedex-dark);
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0.35rem 0.55rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--pokedex-dark) 15%, transparent);
+}
+
+.dex {
+  font-size: 0.7rem;
+}
+
+.branches {
+  margin: 0.35rem 0 0 1rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.trigger {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  background: var(--pokedex-dark);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.trigger.rom {
+  background: var(--pokedex-red);
+}
+
+.final-stage {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+}

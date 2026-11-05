@@ -20,7 +20,7 @@ Furthermore, the original project workbook (`.xlsm`/`.xlsx`) contained initial g
 
 2. **Copyright & ROM File Isolation**:
    - The copyrighted ROM file (`FRDefinitivo-v2.0.4.gba`, `*.gba`, `*.sav`) is strictly excluded from git tracking via `.gitignore`.
-   - Seed data is persisted as clean, non-copyrighted structural JSON (`scratch/rom_species_data.json`).
+   - Current application seed metadata is maintained in [`src/app/core/data/pokedex-seed.data.ts`](../../src/app/core/data/pokedex-seed.data.ts). `scratch/rom_species_data.json` was an extraction-stage reference and is not an application asset.
 
 3. **Exclusion of Legacy Spreadsheet Importer**:
    - The author's Excel spreadsheet serves strictly as a development reference.
@@ -35,4 +35,4 @@ Furthermore, the original project workbook (`.xlsm`/`.xlsx`) contained initial g
   - No copyright infringement risks in repository distribution.
   - Elimination of the brittle legacy spreadsheet import feature simplifies scope.
 - **Negative / Trade-offs**:
-  - ROM-specific quirks (Granbull Normal/Dark) may surprise users expecting canonical Gen 6+ Fairy typing; these are documented clearly in the UI.
+   - ROM-specific quirks (Granbull Normal/Dark) may surprise users expecting canonical Gen 6+ Fairy typing. Existing components show verified types and evolution callouts; full routed UI verification remains open in Phase 2.

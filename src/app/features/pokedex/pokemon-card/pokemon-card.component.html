@@ -1,0 +1,33 @@
+<button type="button" class="pokemon-card" [attr.aria-label]="ariaLabel()" (click)="open()">
+  <span class="dex">{{ dexNumber() }}</span>
+  <span class="sprite-wrap" aria-hidden="true">
+    @if (species().spriteUrl && !spriteFailed()) {
+      <img
+        class="sprite"
+        [src]="species().spriteUrl"
+        alt=""
+        width="96"
+        height="96"
+        (error)="onSpriteError()"
+      />
+    } @else {
+      <svg class="sprite-fallback" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="28" fill="#f7f7f7" stroke="#2a2a2a" stroke-width="4" />
+        <path d="M4 32h56" stroke="#2a2a2a" stroke-width="4" />
+        <circle cx="32" cy="32" r="10" fill="#dc0a2d" stroke="#2a2a2a" stroke-width="3" />
+      </svg>
+    }
+  </span>
+  <span class="name">{{ species().name }}</span>
+  <span class="types">
+    @for (type of types(); track type) {
+      <span
+        class="type-pill"
+        [style.background-color]="typeCssVar(type)"
+        [style.color]="typeUsesDarkLabel(type) ? '#1a1a1a' : '#fff'"
+        >{{ typeLabels[type] }}</span
+      >
+    }
+  </span>
+  <span class="bst">BST {{ species().baseStats.total }}</span>
+</button>

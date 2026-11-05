@@ -1,0 +1,40 @@
+<section class="family" [attr.aria-label]="showHeading() ? messages.evolutionHeading : null">
+  @if (showHeading()) {
+    <h3>{{ messages.evolutionHeading }}</h3>
+    @if (tree().hasRomModification) {
+      <p class="rom-callout" role="note">{{ messages.romCallout }}</p>
+    }
+  }
+
+  <div class="roots">
+    @for (node of renderedNodes(); track node.speciesId) {
+      <div class="node" [class.focus]="isFocus(node.speciesId)">
+        <div class="species">
+          <span class="dex">{{ dexOf(node.speciesId) }}</span>
+          <strong>{{ nameOf(node.speciesId) }}</strong>
+        </div>
+        @if (node.branches.length > 0) {
+          <ul class="branches">
+            @for (branch of node.branches; track branch.speciesId) {
+              <li>
+                @if (triggerLabel(branch); as trigger) {
+                  <span class="trigger" [class.rom]="isRomChange(branch)">{{ trigger }}</span>
+                }
+                <app-evolution-family-tree
+                  [tree]="tree()"
+                  [speciesById]="speciesById()"
+                  [nodes]="[branch]"
+                  [showHeading]="false"
+                />
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    }
+  </div>
+
+  @if (showHeading() && renderedNodes().length === 1 && renderedNodes()[0]?.branches.length === 0) {
+    <p class="final-stage">{{ messages.finalStage }}</p>
+  }
+</section>

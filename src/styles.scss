@@ -1,10 +1,8 @@
 // =============================================================================
 // Pokémon Definitive Pokédex — Global Theme & Design Tokens
 // =============================================================================
-// Custom Pokédex theme applied via Angular Material 3 theming tokens.
-// Primary: Pokédex Crimson Red (#DC0A2D)
-// Tertiary: Dark Slate (#2A2A2A)
-// Surface: Off-White (#F7F7F7)
+// Material uses stock red/azure palettes. Separate Pokédex brand tokens style
+// custom surfaces and the toolbar: red #DC0A2D, dark #2A2A2A, surface #F7F7F7.
 // =============================================================================
 
 @use '@angular/material' as mat;
@@ -66,6 +64,7 @@ body {
   --type-steel: #b7b7ce;
   --type-dark: #705746;
   --type-fairy: #d685ad;
+  --type-mystery: #68a090;
 
   // Pokédex brand tokens
   --pokedex-red: #dc0a2d;

@@ -1,0 +1,72 @@
+<article class="detail">
+  <header class="header">
+    <div>
+      <p class="dex">{{ dexNumber }}</p>
+      <h2>{{ species.name }}</h2>
+      <span class="sprite-wrap" aria-hidden="true">
+        @if (species.spriteUrl && !spriteFailed()) {
+          <img
+            class="sprite"
+            [src]="species.spriteUrl"
+            alt=""
+            width="96"
+            height="96"
+            (error)="spriteFailed.set(true)"
+          />
+        } @else {
+          <svg class="sprite-fallback" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="28" fill="#f7f7f7" stroke="#2a2a2a" stroke-width="4" />
+            <path d="M4 32h56" stroke="#2a2a2a" stroke-width="4" />
+            <circle cx="32" cy="32" r="10" fill="#dc0a2d" stroke="#2a2a2a" stroke-width="3" />
+          </svg>
+        }
+      </span>
+      <div class="types">
+        @for (type of types; track type) {
+          <span
+            class="type-pill"
+            [style.background-color]="typeCssVar(type)"
+            [style.color]="typeUsesDarkLabel(type) ? '#1a1a1a' : '#fff'"
+            >{{ typeLabels[type] }}</span
+          >
+        }
+      </div>
+    </div>
+    <button
+      type="button"
+      mat-icon-button
+      [attr.aria-label]="messages.detail.close"
+      (click)="close()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <section [attr.aria-label]="messages.detail.statsHeading">
+    <h3>{{ messages.detail.statsHeading }}</h3>
+    @for (stat of stats; track stat.key) {
+      <div class="stat-row">
+        <span class="stat-label">{{ messages.detail.statLabels[stat.key] }}</span>
+        <span
+          class="stat-bar"
+          [attr.aria-label]="messages.detail.statLabels[stat.key]"
+          [attr.aria-valuenow]="stat.value"
+          role="meter"
+          [attr.aria-valuemin]="0"
+          [attr.aria-valuemax]="stat.max"
+        >
+          <span
+            class="stat-fill"
+            [class]="
+              'stat-fill ' + statIntensity(stat.key === 'total' ? stat.value / 3 : stat.value)
+            "
+            [style.width.%]="statFillPercent(stat.value, stat.max)"
+          ></span>
+        </span>
+        <span class="stat-value">{{ stat.value }}</span>
+      </div>
+    }
+  </section>
+
+  <app-evolution-family-tree [tree]="tree" [speciesById]="speciesById()" />
+</article>

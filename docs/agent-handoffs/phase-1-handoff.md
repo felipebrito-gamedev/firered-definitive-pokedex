@@ -2,8 +2,10 @@
 
 **Project**: Pokémon Definitive Pokédex (FireRed Definitivo PT-BR v2.0.4)  
 **Completed Phase**: Phase 1 — Project Foundation & Tooling Validation  
-**Date**: October 2026  
-**Status**: 100% Complete — Ready for Review & Approval  
+**Date**: October 2026
+
+**Consistency-cycle annotation (November 5, 2026)**: Verification tables and commands below preserve the Phase 1 reported snapshot; they were not rerun retroactively. Current package resolutions are core 22.2.4 and CLI/build/Material/CDK 22.2.5, within declared ranges rather than exact pins. Runtime 24.22.2 is currently observed versus the historical 24.22.1 baseline. Material uses stock red/azure palettes with separate brand tokens. The earlier 19-token claim omitted MYSTERY; its token was added during the Phase 2 consistency cycle. The current lint gate explicitly checks app and test configurations, then Prettier. Current results and limitations belong to [the correction-cycle record](../approved-artifacts/phase-2-consistency-adjustments.md).  
+**Status**: Complete. Subsequent work is Phase 2 (in progress). Verification counts below are the Phase 1 close snapshot (11 tests).  
 
 ---
 
@@ -48,25 +50,26 @@
 ---
 
 ## 3. Key Files Created / Modified
-- [`package.json`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/package.json) (dependencies, lint/test scripts)
-- [`angular.json`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/angular.json) (baseHref, offline build font optimization)
-- [`src/styles.scss`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/src/styles.scss) (Pokédex Material 3 theme & 19 type tokens)
-- [`src/app/app.component.html`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/src/app/app.component.html) (Pokédex app shell)
-- [`src/app/app.component.scss`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/src/app/app.component.scss) (toolbar styling)
-- [`src/app/app.component.ts`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/src/app/app.component.ts) (shell component)
-- [`src/app/app.component.spec.ts`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/src/app/app.component.spec.ts) (shell tests)
-- [`src/app/core/domain/pokedex-number.util.ts`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/src/app/core/domain/pokedex-number.util.ts) (domain utility)
-- [`src/app/core/domain/pokedex-number.util.spec.ts`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/src/app/core/domain/pokedex-number.util.spec.ts) (TDD test suite)
-- [`.github/workflows/ci.yml`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/.github/workflows/ci.yml) (CI pipeline)
-- [`docs/product-requirements.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/product-requirements.md)
-- [`docs/data-provenance.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/data-provenance.md)
-- [`docs/decisions/ADR-001-technology-stack.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/decisions/ADR-001-technology-stack.md)
-- [`docs/decisions/ADR-002-domain-model-invariants.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/decisions/ADR-002-domain-model-invariants.md)
-- [`docs/decisions/ADR-003-offline-first-sync-architecture.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/decisions/ADR-003-offline-first-sync-architecture.md)
-- [`docs/decisions/ADR-004-rom-data-provenance.md`](file:///c:/ambienteDev/projetos/firered-definitive-pokedex/docs/decisions/ADR-004-rom-data-provenance.md)
+- [`package.json`](../../package.json) (dependencies, lint/test scripts)
+- [`angular.json`](../../angular.json) (baseHref, offline build font optimization)
+- [`src/styles.scss`](../../src/styles.scss) (Pokédex Material 3 theme & 19 type tokens)
+- [`src/app/app.component.html`](../../src/app/app.component.html) (Pokédex app shell)
+- [`src/app/app.component.scss`](../../src/app/app.component.scss) (toolbar styling)
+- [`src/app/app.component.ts`](../../src/app/app.component.ts) (shell component)
+- [`src/app/app.component.spec.ts`](../../src/app/app.component.spec.ts) (shell tests)
+- [`src/app/core/domain/pokedex-number.util.ts`](../../src/app/core/domain/pokedex-number.util.ts) (domain utility)
+- [`src/app/core/domain/pokedex-number.util.spec.ts`](../../src/app/core/domain/pokedex-number.util.spec.ts) (TDD test suite)
+- [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) (CI pipeline)
+- [`docs/product-requirements.md`](../product-requirements.md)
+- [`docs/data-provenance.md`](../data-provenance.md)
+- [`docs/decisions/ADR-001-technology-stack.md`](../decisions/ADR-001-technology-stack.md)
+- [`docs/decisions/ADR-002-domain-model-invariants.md`](../decisions/ADR-002-domain-model-invariants.md)
+- [`docs/decisions/ADR-003-offline-first-sync-architecture.md`](../decisions/ADR-003-offline-first-sync-architecture.md)
+- [`docs/decisions/ADR-004-rom-data-provenance.md`](../decisions/ADR-004-rom-data-provenance.md)
 
 ---
 
-## 4. Next Recommended Action
-- Provide the recommended git commands for the human developer to inspect and execute manually in their shell (agents must NEVER run mutating git commands).
-- Request user approval to proceed to **Phase 2 — Reference Pokédex & Catalog** (starting with Phase 2 planning and proposal artifact).
+## 4. Handoff Status
+Phase 1 is closed. **Phase 2 — Reference Pokédex & Catalog** is now complete; its final results are in [the Phase 2 handoff](./phase-2-handoff.md). The approved plan is [`docs/approved-artifacts/phase-2-reference-pokedex-and-catalog.md`](../approved-artifacts/phase-2-reference-pokedex-and-catalog.md).
+
+The originally outstanding Phase 2 integration work is complete. [`docs/roadmap.md`](../roadmap.md) tracks final milestones. Phase 3 remains pending until its plan receives Navigator approval.

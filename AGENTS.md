@@ -123,13 +123,14 @@ Any code handling collection and Pokédex state MUST strictly enforce:
      3. *Replace an existing profile* (only after explicit confirmation and safety checks).
 
 ## 7. Technical Architecture & Stack Validation
-- **Runtime Environment**: Node.js **v24.22.1 (LTS "Krypton")** (satisfies Angular 22 engine requirement `^24.15.0`).
-- **Framework**: **Angular 22** latest stable (`@angular/core@^22.2.0`, standalone components, Angular Signals, `provideHttpClient`, `provideRouter`).
-- **Language**: TypeScript in strict mode (`strict: true`, `noImplicitAny: true`, `strictNullChecks: true`).
-- **UI Library**: Angular Material 22 (`@angular/material@^22.2.0`) with SCSS and a custom Pokédex theme (crimson red `#DC0A2D`, dark slate `#2A2A2A`, off-white surface `#F7F7F7`).
-- **Local Persistence**: Dexie.js v4 (`dexie@^4.4.0`) (IndexedDB) with typed repositories.
-- **Cloud Persistence & Auth**: Firebase Modular SDK v13 (`firebase@^13.1.0`) (Google Sign-In) and Cloud Firestore (scoped paths `/users/{userId}/profiles/{profileId}/...`).
-- **PWA Tooling**: Angular Service Worker (`@angular/pwa@^22.2.0`) targeting GitHub Pages. Service worker approach must be validated for caching and routing.
+- **Runtime Environment**: Project baseline Node.js **v24.22.1 (LTS "Krypton")**; the consistency cycle observed **v24.22.2**. Both satisfy the installed Angular engine range `^24.15.0`. Historical Phase 1 runtime evidence remains a snapshot of that phase.
+- **Framework**: Project baseline **Angular 22** (`@angular/core@^22.2.4`, standalone components, Angular Signals, `provideHttpClient`, `provideRouter`). Lockfile resolves core to **22.2.4**, and CLI/build/Material/CDK to **22.2.5**; declared ranges are not exact pins.
+- **Language**: TypeScript **~6.0.2** in strict mode (`strict: true`, `noImplicitAny: true`, `strictNullChecks: true`).
+- **Lint gate**: `npm run lint` explicitly runs `tsc --noEmit -p tsconfig.app.json`, `tsc --noEmit -p tsconfig.spec.json`, and the source Prettier check. Angular template compilation is verified by test/build. ESLint is not part of the toolchain.
+- **UI Library**: Angular Material 22 (`@angular/material@^22.2.4`, resolved **22.2.5**) uses stock red/azure Material palettes. Separate custom Pokédex tokens style the toolbar and custom surfaces (crimson red `#DC0A2D`, dark slate `#2A2A2A`, off-white `#F7F7F7`). All 19 ROM type tokens exist, including MYSTERY; catalog filters expose 18 playable types.
+- **Local Persistence**: Dexie.js v4 (`dexie@^4.4.7`; lockfile **4.4.7**) (IndexedDB). Phase 2 stores the reference catalog. Typed player repositories arrive in Phase 3.
+- **Cloud Persistence & Auth**: Firebase Modular SDK v13 (`firebase@^13.1.0`) (Google Sign-In) and Cloud Firestore (scoped paths `/users/{userId}/profiles/{profileId}/...`). Introduced in Phase 4.
+- **PWA Tooling**: Angular Service Worker (`@angular/pwa@^22.2.4`) targeting GitHub Pages. Introduced in Phase 5. Service worker approach must be validated for caching and routing.
 - **Planned Application Base Href**: `/firered-definitive-pokedex/` on GitHub Pages.
 - **Testing**:
   - Unit: Vitest v5 (`vitest@^5.0.0` with jsdom).
@@ -164,8 +165,8 @@ Any code handling collection and Pokédex state MUST strictly enforce:
 
 ## 10. Development Roadmap & Status
 - **Phase 0 — Discovery and Architecture**: **COMPLETED & APPROVED** (ROM binary verified, 100% DAG, domain invariants, architecture baselined).
-- **Phase 1 — Project Foundation & Tooling**: **COMPLETED** (Angular 22.2.4 on Node.js v24.22.1 LTS, Vitest v5, Material 22 custom theme, TDD domain utility, CI pipeline, base docs suite; ready for approval).
-- **Phase 2 — Reference Pokédex & Catalog**: **PENDING APPROVAL** (Next Phase: ROM dataset seeding, Dexie schema v1, virtual-scrolled Pokédex catalog, search & type filters, detail sheet).
+- **Phase 1 — Project Foundation & Tooling**: **COMPLETED** (Angular 22.2.4 on Node.js v24.22.1 LTS, Vitest v5, Material 22 custom theme, TDD domain utility, CI pipeline, base docs suite).
+- **Phase 2 — Reference Pokédex & Catalog**: **COMPLETED** (bootstrap seeding and catalog/tree loading, recoverable startup, routed responsive virtual catalog, search/type/sort controls, and accessible species details. Final lint, 73 tests, and production build passed; initial bundle 397.91 kB with zero Angular warnings. Scoped mobile/desktop browser checks passed. Evidence and limits: `docs/agent-handoffs/phase-2-handoff.md`. Phase 3 requires a separately approved plan).
 - **Phase 3 — Local Player Tracking & Collection**: Pending.
 - **Phase 4 — Authentication & Secure Firestore Sync**: Pending.
 - **Phase 5 — PWA & GitHub Pages Deployment**: Pending.

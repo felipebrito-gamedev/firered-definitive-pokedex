@@ -2,8 +2,10 @@
 
 **Project**: Pokémon Definitive Pokédex (FireRed Definitivo PT-BR v2.0.4)  
 **Phase**: Phase 1 — Project Foundation & Tooling Validation  
-**Status**: 100% Completed — Ready for Approval  
-**Date**: October 2026  
+**Status**: Completed (historical foundation report; Phase 2 has subsequently completed)  
+**Date**: October 2026
+
+**Consistency-cycle annotation (November 5, 2026)**: Verification tables and commands below preserve the Phase 1 reported snapshot; they were not rerun retroactively. Current package resolutions are core 22.2.4 and CLI/build/Material/CDK 22.2.5, within declared ranges rather than exact pins. Runtime 24.22.2 is currently observed versus the historical 24.22.1 baseline. Material uses stock red/azure palettes with separate brand tokens. The earlier 19-token claim omitted MYSTERY; its token was added during the Phase 2 consistency cycle. The current lint gate explicitly checks app and test configurations, then Prettier. Current results and limitations belong to [the correction-cycle record](./phase-2-consistency-adjustments.md).  
 
 ---
 
@@ -26,7 +28,8 @@ Additionally, the development workflow protocol has been formalized across all d
 | **Angular Core / CLI** | `^22.2.4` | Verified via `ng build` | Standalone components, Angular Signals reactivity, `provideHttpClient` |
 | **Angular Material / CDK**| `^22.2.4` | Verified in App Shell | Material Design 3 components, accessible toolbar, custom SCSS theme |
 | **Vitest** | `^5.0.0` | 11/11 tests passing (4.2s) | Unit test runner integrated via `@angular/build:unit-test` with `jsdom` |
-| **TypeScript** | `~6.0.2` (6.0.3 installed) | 0 errors via `tsc --noEmit` | Strict mode typing (`strict: true`, `noImplicitAny: true`) |
+| **TypeScript** | `~6.0.2` (6.0.3 installed) | 0 errors via `tsc --noEmit` | Strict mode typing (`strict: true`, `noImplicitAny: true`, `strictNullChecks: true`) in root `tsconfig.json` |
+| **Lint gate** | `tsc --noEmit` + Prettier | Configured as `npm run lint` | ESLint is not used; this pair is the project lint gate |
 | **Prettier** | `^3.8.1` | 100% compliant | Automated code formatting for `.ts`, `.html`, and `.scss` |
 | **CI / CD Pipeline** | GitHub Actions | Configured in `ci.yml` | Lint, test, and build executed on every push and PR |
 | **Hosting Target** | GitHub Pages | Base href configured | Base href `/firered-definitive-pokedex/` set for production build |
@@ -143,10 +146,6 @@ npm run build
 
 ---
 
-## 4. Proposed Next Steps (Phase 2 Preview)
+## 4. Follow-on Status
 
-With Phase 1 complete, the foundation is ready for **Phase 2 — Reference Pokédex & Catalog**:
-1. Craft the **Phase 2 Proposal Artifact** (`phase-2-reference-pokedex-and-catalog.md`) covering Dexie schema v1, ROM dataset seeding, virtual-scrolled catalog view, instant search, and detail modal.
-2. Present the proposal artifact for user review and explicit approval.
-3. Upon approval, immediately save the approved proposal artifact into `docs/approved-artifacts/phase-2-reference-pokedex-and-catalog.md` **before** writing code.
-4. Execute Phase 2 implementation under TDD.
+Phase 2 planning was approved and archived at [`docs/approved-artifacts/phase-2-reference-pokedex-and-catalog.md`](./phase-2-reference-pokedex-and-catalog.md) before implementation. That phase has subsequently completed; see [the Phase 2 handoff](../agent-handoffs/phase-2-handoff.md). Phase 3 requires its own approved plan.

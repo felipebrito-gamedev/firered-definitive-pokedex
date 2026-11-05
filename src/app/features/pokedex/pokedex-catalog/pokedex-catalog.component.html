@@ -1,0 +1,54 @@
+<section
+  class="catalog"
+  aria-labelledby="catalog-heading"
+  [attr.aria-busy]="startup.status() === 'loading'"
+>
+  <header>
+    <h1 id="catalog-heading">{{ messages.heading }}</h1>
+    <p class="description">{{ messages.description }}</p>
+  </header>
+  @switch (startup.status()) {
+    @case ('loading') {
+      <p role="status">{{ messages.loading }}</p>
+    }
+    @case ('error') {
+      <div class="error-state" role="alert">
+        <p>{{ messages.loadError }}</p>
+        <button mat-flat-button type="button" class="retry-button" (click)="retry()">
+          {{ messages.retry }}
+        </button>
+      </div>
+    }
+    @case ('ready') {
+      <app-pokedex-filter />
+      @if (rows().length > 0) {
+        <cdk-virtual-scroll-viewport
+          class="catalog-viewport"
+          [itemSize]="rowHeight"
+          [minBufferPx]="rowHeight"
+          [maxBufferPx]="rowHeight * 2"
+          role="region"
+          [attr.aria-label]="messages.listAria"
+          tabindex="0"
+        >
+          <div
+            *cdkVirtualFor="let row of rows(); templateCacheSize: 0"
+            class="catalog-row"
+            role="list"
+            [style.grid-template-columns]="'repeat(' + columnCount() + ', minmax(0, 1fr))'"
+          >
+            @for (species of row; track species.id) {
+              <app-pokemon-card
+                role="listitem"
+                [species]="species"
+                (selected)="openDetails($event)"
+              />
+            }
+          </div>
+        </cdk-virtual-scroll-viewport>
+      } @else {
+        <p role="status">{{ messages.empty }}</p>
+      }
+    }
+  }
+</section>
